@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You're My Valentine!</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Dancing Script", cursive, "Arial", sans-serif;
+        background-color: rgb(253, 205, 213);
+        text-align: center;
+        padding: 50px;
+      }
+
+      h1 {
+        color: #d63384;
+        font-size: 2.5rem;
+      }
+
+      .image-container {
+        position: relative;
+        display: inline-block;
+        margin: 20px 0;
+      }
+
+      .image-container img {
+        width: 100%;
+      }
+
+      .hearts {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .heart {
+        position: absolute;
+        color: red;
+        font-size: 24px;
+        animation: floatAround 4s infinite ease-in-out;
+      }
+
+      @keyframes floatAround {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        25% {
+          transform: translate(-20px, -30px) rotate(20deg);
+        }
+        50% {
+          transform: translate(20px, -50px) rotate(-20deg);
+        }
+        75% {
+          transform: translate(-15px, -70px) rotate(10deg);
+        }
+        100% {
+          transform: translate(0, -100px) rotate(0deg);
+        }
+      }
+
+      .countdown p {
+        font-size: 18px;
+        color: #d63384;
+      }
+
+      #timer {
+        font-size: 24px;
+        font-weight: bold;
+        color: red;
+        background-color: white;
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(255, 0, 77, 0.3);
+      }
+
+      .love-letter-container {
+        position: relative; /* Container for positioning the button */
+        margin-top: 20px;
+        max-width: 400px;
+        margin: auto;
+      }
+
+      .love-letter {
+        padding: 20px;
+        border: 2px solid red;
+        background-color: white;
+        border-radius: 10px;
+        text-align: left;
+        filter: blur(5px); /* Blur effect for the letter */
+        pointer-events: none; /* Disable interaction with blurred content */
+        transition: filter 1s ease-in-out;
+      }
+
+      .love-letter.unlocked {
+        filter: none; /* Remove blur when unlocked */
+        pointer-events: auto; /* Enable interaction */
+      }
+
+      .locked-message {
+        font-size: 16px;
+        color: red;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      #revealButton {
+        position: absolute; /* Position the button in the center */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px 20px;
+        font-size: 18px;
+        color: white;
+        background-color: #d63384;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+        display: none; /* Initially hidden */
+        z-index: 10; /* Ensure the button is above the blurred content */
+      }
+
+      #revealButton:hover {
+        background-color: #ff1493;
+      }
+      hr {
+        overflow: visible; /* For IE */
+        padding: 0;
+        border: none;
+        border-top: medium double #1c605a;
+        color: #1c605a;
+        text-align: center;
+      }
+      hr:after {
+        content: "♡";
+        display: inline-block;
+        position: relative;
+        top: -0.7em;
+        font-size: 1.5em;
+        padding: 0 0.25em;
+        background: rgb(253, 205, 213);
+      }
+      .poem p {
+        margin: 0; /* Remove default margin */
+        line-height: 1.2; /* Adjust line height to make lines closer */
+      }
+
+      .poem p + p {
+        margin-top: 0.5em; /* Add a small space between paragraphs */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>I Love You Soooo Much</h1>
+      <hr />
+      <p>Thank you for letting me be your Valentine!</p>
+
+      <!-- Picture with Floating Hearts Around It -->
+      <div class="image-container">
+        <img src="https://i.imgur.com/QY1wT4T.png" alt="Us Together" />
+        <div class="hearts">
+          <span class="heart" style="top: 10%; left: 20%">❤️</span>
+          <span class="heart" style="top: 30%; left: 80%">💖</span>
+          <span class="heart" style="top: 50%; left: 50%">💕</span>
+          <span class="heart" style="top: 70%; left: 10%">💘</span>
+          <span class="heart" style="top: 90%; left: 60%">❤️</span>
+        </div>
+      </div>
+
+      <!-- Countdown Timer -->
+      <div class="countdown">
+        <p>You get your gift in:</p>
+        <div id="timer">Loading...</div>
+      </div>
+
+      <!-- Love Letter Reveal (Initially Locked) -->
+      <div class="love-letter-container">
+        <div class="love-letter locked" id="loveLetter">
+          <p class="locked-message" id="lockedMessage">
+            Locked until Valentine's Day!
+          </p>
+          <div class="letter-content">
+            <h2>A Little Letter to You</h2>
+            <p>Dear Love,</p>
+            <p>
+              When you first said you loved me, I thought I was dreaming. I
+              definitly didn't take that from a song... I'm not a very poetic
+              guy but my 9th grade english teacher thought I should've been a
+              poet, so I'm gonna try to make a poem about you because it fits
+              the vibe.
+            </p>
+            <div class="poem">
+              <p></p>
+              <p>I can't keep her out of my mind,</p>
+              <p>I feel calm every time I hear her,</p>
+              <p>I can't forger how her pretty smile shines</p>
+              <p>I think I love her.</p>
+            </div>
+            <p>
+              Well I tried but hopefully you could laugh about how embrassing
+              that is. I am so lucky to have you in my life and there isn't
+              anyone else that I'd want to share this day with. I love you and
+              here are a few things I love about you:
+            </p>
+            <ul>
+              <li>Your comfort</li>
+              <li>Your smile</li>
+              <li>The way you care</li>
+              <li>When you send cute messages</li>
+              <li>How you try</li>
+              <li>How you like me for me</li>
+              <li>How you make me feel good about myself</li>
+              <li>How you still talk to me with your busy schedule</li>
+              <li>How you're understanding</li>
+              <li>How you look in a dress😗</li>
+            </ul>
+            <p>
+              I can't wait until we get to see each other and spend the
+              valentines together in person.
+            </p>
+            <p>Forever yours, Guinea Pig</p>
+          </div>
+        </div>
+        <!-- Reveal Button (Outside the Blurred Content) -->
+        <button id="revealButton">Reveal Gift</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
